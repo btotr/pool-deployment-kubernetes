@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-engine-service
+  labels:
+    run: app-engine
+spec:
+  ports:
+  - name: app-engine-port
+    port: 80
+    protocol: TCP    
+  selector:
+    app: app-engine
+    state: inactive
+  type: NodePort

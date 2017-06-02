@@ -1,0 +1,37 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: app-engine-deployment
+spec:
+  # act as pool
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        app: app-engine
+        state: inactive
+    spec:
+      containers:
+      - name: app-engine
+        image: btotr/app-engine:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: volume
+          mountPath: "/mount/volume"
+      - name: kubectl
+        image: gcr.io/google_containers/kubectl:v0.18.0-120-gaeb4ac55ad12b1-dirty
+        imagePullPolicy: Always
+        args:
+        - proxy
+        - "-p"
+        - '8001'
+      volumes:
+      - name: volume
+        emptyDir: {}
