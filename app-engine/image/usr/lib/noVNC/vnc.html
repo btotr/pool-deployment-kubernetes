@@ -329,7 +329,7 @@
     
     <script type="text/javascript">
       
-      function getParameterByName(name, url) {
+      /*function getParameterByName(name, url) {
           if (!url) url = window.location.href;
           name = name.replace(/[\[\]]/g, "\\$&");
           var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -350,7 +350,7 @@
         request.open('PATCH', 'http://localhost:8080/api/v1/namespaces/default/pods/'+podName, false);
         request.setRequestHeader("Content-type","application/json-patch+json");
         request.send('[{\"op\": \"replace\", \"path\": \"/metadata/labels/state\", \"value\": \"dangling\"}]');
-      }
+      }*/
       
     </script>
 

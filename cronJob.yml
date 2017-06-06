@@ -4,6 +4,8 @@ metadata:
   name: remove-dangling-cron-job
 spec:
   schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -16,8 +18,6 @@ spec:
             - sh
             - "-c"
             - curl -X DELETE ${KUBERNETES_RO_SERVICE_HOST}:${KUBERNETES_RO_SERVICE_PORT}/api/v1/namespaces/default/pods?labelSelector=state%3Ddangling;
-            ports:
-            - containerPort: 8080
             env:
             - name: KUBERNETES_RO_SERVICE_HOST
               value: 127.0.0.1

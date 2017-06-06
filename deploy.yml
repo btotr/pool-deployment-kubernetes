@@ -14,24 +14,33 @@ spec:
       containers:
       - name: app-engine
         image: btotr/app-engine:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+
+      - name: app-engine-controller
+        image: btotr/app-engine-controller:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 2626
         env:
         - name: POD_NAME
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: KUBERNETES_RO_SERVICE_HOST
+          value: 127.0.0.1
+        - name: KUBERNETES_RO_SERVICE_PORT
+          value: '8001'
         volumeMounts:
-        - name: volume
-          mountPath: "/mount/volume"
+        - name: test-volume
+          mountPath: "/mount/test-volume"      
       - name: kubectl
         image: gcr.io/google_containers/kubectl:v0.18.0-120-gaeb4ac55ad12b1-dirty
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         args:
         - proxy
         - "-p"
         - '8001'
       volumes:
-      - name: volume
+      - name: test-volume
         emptyDir: {}

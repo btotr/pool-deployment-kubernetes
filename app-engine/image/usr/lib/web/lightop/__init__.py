@@ -79,10 +79,10 @@ HTML_REDIRECT = '''<html><head>
         var port = window.location.port;
         if (!port)
             port = window.location.protocol[4] == 's' ? 443 : 80;
-        window.location.href = "vnc.html?autoconnect=1&autoscale=0&quality=3&pod=%s"
+        window.location.href = "vnc.html?autoconnect=1&autoscale=0&quality=3";
     </script>
     <title>Page Redirection</title>
-</head><body></body></html>''' % ( os.environ['POD_NAME'] )
+</head><body></body></html>'''
 
 
 @app.route('/')
@@ -96,7 +96,7 @@ def redirectme():
 
     if not FIRST:
         return HTML_REDIRECT
-    
+
     env = {'width': 1024, 'height': 768}
     if 'width' in request.args:
         env['width'] = request.args['width']

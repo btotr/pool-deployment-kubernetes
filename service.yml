@@ -8,8 +8,11 @@ spec:
   ports:
   - name: app-engine-port
     port: 80
+    protocol: TCP
+  - name: app-engine-controller-port
+    port: 2626
     protocol: TCP    
   selector:
     app: app-engine
     state: inactive
-  type: NodePort
+  type: LoadBalancer

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>hub</title>
+  <script>
+  //create connection object
+  var connection = new WebSocket('ws://'+document.location.host);
+
+  connection.onopen = function () {
+    connection.send("connect");
+    console.log("connect")
+  };
+  
+  connection.onmessage = function (e) {
+    window.open("http://" + document.location.hostname)
+  };
+
+  window.onunload = function(){
+    connection.send("disconnect");
+  }
+
+  </script>
+</head>
+<body>
+hub
+</body>
+</html>

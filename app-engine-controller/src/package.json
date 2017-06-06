@@ -1,0 +1,9 @@
+{
+  "name": "app-engine-controller",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "*",
+    "ws": "*",
+    "unirest": "*"
+  }
+}
