@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: app-engine-controller-load-tester-job
+spec:
+  template:
+    metadata:
+      name: app-engine-controller-load-tester-job
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: app-engine-controller-load-tester-job
+        imagePullPolicy: IfNotPresent
+        image: pet3rmatta/phantomjs-alpine
+        # opening an arbitrary website (google.com) makes sure phantomjs unloads the document which triggers a disconnect
+        command: ['sh', '-c', 'echo "var system = require(\"system\"); var page = require(\"webpage\").create(); page.open(system.args[1], function(){ page.open(\"http://google.com\", function(){ window.setTimeout(function () {phantom.exit();},2000) });});" > test.js && for i in `seq 1 $REQUESTS`; do phantomjs test.js http://$HOST:$PORT; done']
+        env:
+        - name: HOST
+          value: '192.168.99.100'
+        - name: PORT
+          value: '31689'
+        - name: REQUESTS
+          value: '10'

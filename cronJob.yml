@@ -4,8 +4,9 @@ metadata:
   name: remove-dangling-cron-job
 spec:
   schedule: "*/1 * * * *"
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:

@@ -4,7 +4,7 @@ metadata:
   name: app-engine-deployment
 spec:
   # act as pool
-  replicas: 2 
+  replicas: 10 
   template:
     metadata:
       labels:
@@ -13,16 +13,15 @@ spec:
     spec:
       containers:
       - name: app-engine
-        image: btotr/app-engine:latest
+        image: dorowu/ubuntu-desktop-lxde-vnc:latest
         imagePullPolicy: IfNotPresent
-        ports:
-
       - name: app-engine-controller
         image: btotr/app-engine-controller:latest
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2626
         env:
+        # using dowward api: https://docs.openshift.org/latest/dev_guide/downward_api.html
         - name: POD_NAME
           valueFrom:
             fieldRef:

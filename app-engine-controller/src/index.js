@@ -15,6 +15,7 @@ app.use(express.static(__dirname + '/static'));
 ws.on('connection', function(wsI) {
   wsI.send('connected: ' + podName);
   wsI.on('message', function(message) {
+    // using json patch replace operator  https://tools.ietf.org/html/rfc6902#section-4.3
     if (message == "disconnect") unirest.patch('http://'+host+':'+port+'/api/v1/namespaces/default/pods/'+podName)
       .headers({'Content-type': 'application/json-patch+json'})
       .send('[{"op": "replace", "path": "/metadata/labels/state", "value": "dangling"}]')
