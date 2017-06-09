@@ -12,6 +12,7 @@
   };
   
   connection.onmessage = function (e) {
+    // FIXME: should be e.data
     window.open("http://" + document.location.hostname)
   };
 

@@ -4,7 +4,7 @@ metadata:
   name: app-engine-deployment
 spec:
   # act as pool
-  replicas: 10 
+  replicas: 5 
   template:
     metadata:
       labels:

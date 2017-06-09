@@ -15,10 +15,8 @@ spec:
           containers:
           - name: remove-dangling
             image: uzyexe/curl
-            command:
-            - sh
-            - "-c"
-            - curl -X DELETE ${KUBERNETES_RO_SERVICE_HOST}:${KUBERNETES_RO_SERVICE_PORT}/api/v1/namespaces/default/pods?labelSelector=state%3Ddangling;
+            imagePullPolicy: IfNotPresent
+            command: ['sh', '-c', 'curl -X DELETE ${KUBERNETES_RO_SERVICE_HOST}:${KUBERNETES_RO_SERVICE_PORT}/api/v1/namespaces/default/pods?labelSelector=state%3Ddangling && exit 1']
             env:
             - name: KUBERNETES_RO_SERVICE_HOST
               value: 127.0.0.1
@@ -29,7 +27,7 @@ spec:
               mountPath: "/mount/test-volume"
           - name: kubectl
             image: gcr.io/google_containers/kubectl:v0.18.0-120-gaeb4ac55ad12b1-dirty
-            imagePullPolicy: Always
+            imagePullPolicy: IfNotPresent
             args:
             - proxy
             - "-p"

@@ -13,11 +13,11 @@ spec:
         imagePullPolicy: IfNotPresent
         image: pet3rmatta/phantomjs-alpine
         # opening an arbitrary website (google.com) makes sure phantomjs unloads the document which triggers a disconnect
-        command: ['sh', '-c', 'echo "var system = require(\"system\"); var page = require(\"webpage\").create(); page.open(system.args[1], function(){ page.open(\"http://google.com\", function(){ window.setTimeout(function () {phantom.exit();},2000) });});" > test.js && for i in `seq 1 $REQUESTS`; do phantomjs test.js http://$HOST:$PORT; done']
+        command: ['sh', '-c', 'echo "var system = require(\"system\"); var page = require(\"webpage\").create(); page.open(system.args[1], function(){ page.open(\"http://google.com\", function(){ window.setTimeout(function () {phantom.exit();},2000) });});" > test.js && for i in `seq 1 $REQUESTS`; do phantomjs test.js http://$HOST:$PORT; done && exit 0']
         env:
         - name: HOST
           value: '192.168.99.100'
         - name: PORT
-          value: '31689'
+          value: '30094'
         - name: REQUESTS
-          value: '10'
+          value: '3'
