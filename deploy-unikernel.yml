@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: app-engine-deployment-unikernel
+spec:
+  # act as pool
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: app-engine
+        state: inactive
+    spec:
+      containers:
+      - name: app-engine
+        image: hub.project-unik.io/btotr/hello-world
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+      imagePullSecrets: 
+      - name: unik  

@@ -4,7 +4,7 @@ metadata:
   name: app-engine-deployment
 spec:
   # act as pool
-  replicas: 5 
+  replicas: 1 
   template:
     metadata:
       labels:
@@ -12,9 +12,6 @@ spec:
         state: inactive
     spec:
       containers:
-      - name: app-engine
-        image: dorowu/ubuntu-desktop-lxde-vnc:latest
-        imagePullPolicy: IfNotPresent
       - name: app-engine-controller
         image: btotr/app-engine-controller:latest
         imagePullPolicy: IfNotPresent
